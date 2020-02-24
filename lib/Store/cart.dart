@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecommerce/modals/book.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
+import 'package:ecommerce/storehome.dart';
 import '../main.dart';
 import 'Config/config.dart';
 
@@ -16,11 +17,13 @@ class _CartPageState extends State<CartPage> {
   void initState() {
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: CustomScrollView(
         slivers: <Widget>[
+
           SliverAppBar(
             elevation: 0.0,
             centerTitle: true,
@@ -39,56 +42,75 @@ class _CartPageState extends State<CartPage> {
             ],
           ),
           StreamBuilder<QuerySnapshot>(
-              stream: Firestore.instance.collection('products').where('id',whereIn: EcommerceApp.sharedPreferences
+              stream: Firestore.instance.collection('books').where(
+                  'isbn', whereIn: EcommerceApp.sharedPreferences
                   .getStringList(
                 EcommerceApp.userCartList,
               )).snapshots(),
               builder: (context, snapshot) {
                 return !snapshot.hasData
                     ? SliverToBoxAdapter(
-                        child: CircularProgressIndicator(),
-                      )
-                    : SliverList(
-                        delegate: SliverChildBuilderDelegate(
-                          (context, index) {
-                            return ListTile(
-                                trailing: IconButton(
-                                    icon: Icon(Icons.remove_shopping_cart),
-                                    onPressed: () => _removeItemInCart(snapshot
-                                        .data.documents[index].data['id'])),
-                                title: Text(snapshot
-                                    .data.documents[index].data['name']));
-                          },
-                          childCount: snapshot.hasData
-                              ? snapshot.data.documents.length
-                              : 0,
-                        ),
-                      );
+                  child: Center(child: CircularProgressIndicator()),
+                )
+                    : snapshot.data.documents.length == 0 ? startBuildingCart():SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                        (context, index) {
+                      BookModel model = BookModel.fromJson(
+                          snapshot.data.documents[index].data);
+                      return sourceInfo(model, context,
+                          removeCartFunction: ()=> removeItemInCart(model.isbn));
+                    },
+                    childCount: snapshot.hasData
+                        ? snapshot.data.documents.length
+                        : 0,
+                  ),
+                );
               })
         ],
       ),
     );
   }
+   // TODO Make design better
+   startBuildingCart(){
+    return SliverToBoxAdapter(
+      child: Card(
+        color: Colors.red.withOpacity(0.5),
+        child: Container(
+            height: 100,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Icon(Icons.insert_emoticon,color: Colors.white),
+                Text('You dont have any product in cart' ),
+                Text('Start building your cart now!!'),
+              ],
+            )),
+      ),
+    );
 
-  _removeItemInCart(String productID) {
-      List temp = EcommerceApp.sharedPreferences
+  }
+
+  removeItemInCart(String productID) {
+    print('Someone called me');
+    List temp = EcommerceApp.sharedPreferences
         .getStringList(
-          EcommerceApp.userCartList,
-        );
-        temp.remove(productID);
+      EcommerceApp.userCartList,
+    );
+    temp.remove(productID);
     EcommerceApp.firestore
         .collection(EcommerceApp.collectionUser)
         .document(
-            EcommerceApp.sharedPreferences.getString(EcommerceApp.userUID))
+        EcommerceApp.sharedPreferences.getString(EcommerceApp.userUID))
         .updateData({
       EcommerceApp.userCartList: temp
     }).then((_) {
       Fluttertoast.showToast(msg: 'Item Removed Succesfully');
       EcommerceApp.sharedPreferences.setStringList(
-          EcommerceApp.userCartList,temp);
+          EcommerceApp.userCartList, temp);
       setState(() {
 
       });
     });
   }
+
 }

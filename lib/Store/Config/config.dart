@@ -17,7 +17,7 @@ class EcommerceApp{
 
    // Firebase Collection name
    static String collectionUser = "users";
-   static String collectionAllBooks = "allBooks";
+   static String collectionAllBooks = "books";
    static String userCartList = 'userCart';
 
    //Strings
@@ -38,5 +38,8 @@ class EcommerceApp{
    static final String userUID = 'uid';
    static final String userAvatarUrl = 'url';
    static final String userJoinedTeams = 'joinedTeams';
+
+
+   // BOOKs field
 
 }
