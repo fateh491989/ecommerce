@@ -1,8 +1,8 @@
-import 'package:ecommerce/modals/cartitemcounter.dart';
+import 'package:ecommerce/Store/cart.dart';
+import 'package:ecommerce/notifiers/cartitemcounter.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../cart.dart';
 
 class MyAppBar extends StatelessWidget with PreferredSizeWidget {
   final PreferredSizeWidget bottom;
@@ -32,7 +32,7 @@ class MyAppBar extends StatelessWidget with PreferredSizeWidget {
                 child: Stack(
                   children: <Widget>[
                     Icon(Icons.brightness_1,
-                        size: 20.0, color: Colors.green[800]),
+                        size: 20.0, color: Colors.deepPurple),
                     Positioned(
                         top: 3.0,
                         right: 4.0,

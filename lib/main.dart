@@ -1,29 +1,24 @@
 import 'dart:async';
-import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:ecommerce/modals/BookQuantity.dart';
+import 'package:ecommerce/notifiers/BookQuantity.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'Store/Authentication/authenication.dart';
-import 'Store/Config/config.dart';
-import 'Store/homepage.dart';
+import 'Authentication/authenication.dart';
+import 'Payment/paymentDetailsaPage.dart';
+import 'package:ecommerce/Config/config.dart';
+import 'notifiers/cartitemcounter.dart';
+import 'Store/myOrders.dart';
+import 'notifiers/changeAddresss.dart';
+import 'notifiers/totalMoney.dart';
+import 'Store/storehome.dart';
 
-import 'modals/cartitemcounter.dart';
-import 'storehome.dart';
-
-//List<String> cartItems;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   EcommerceApp.sharedPreferences = await SharedPreferences.getInstance();
   EcommerceApp.auth = FirebaseAuth.instance;
   EcommerceApp.firestore = Firestore.instance;
-  //cartItems = [];
-  //TODO Delete this line
-  await EcommerceApp.sharedPreferences
-      .setStringList(EcommerceApp.userCartList, ['garbageValue']);
   runApp(MyApp());
 }
 
@@ -34,43 +29,18 @@ class MyApp extends StatelessWidget {
         providers: [
           ChangeNotifierProvider(create: (_) => CartItemCounter()),
           ChangeNotifierProvider(create: (_) => BookQuantity()),
+          ChangeNotifierProvider(create: (_) => AddressChanger()),
+          ChangeNotifierProvider(create: (_) => TotalAmount()),
         ],
         child: MaterialApp(
             title: 'Flutter Demo',
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
-              primarySwatch: Colors.blue,
+              primaryColor: Colors.deepPurple,
             ),
-            home:
-                //RecomendedPage()
-                //StoreHome()
-            //AllTeams()
-            SplashScreen()
-            //AuthenticScreen(),
-            //PLayerProfile()
-            ));
+            home: SplashScreen()));
   }
 }
-//class MyApp extends StatelessWidget {
-//  // This widget is the root of your application.
-//  @override
-//  Widget build(BuildContext context) {
-//    return MaterialApp(
-//        title: 'Flutter Demo',
-//        debugShowCheckedModeBanner: false,
-//        theme: ThemeData(
-//          primarySwatch: Colors.blue,
-//        ),
-//        home:
-//        //RecomendedPage()
-//        StoreHome()
-//        //AllTeams()
-//        //SplashScreen()
-//      //AuthenticScreen(),
-//      //PLayerProfile()
-//    );
-//  }
-//}
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -85,9 +55,8 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   startTimer() {
-    Timer(Duration(seconds: 3), () async {
+    Timer(Duration(seconds: 2), () async {
       if (await EcommerceApp.auth.currentUser() != null) {
-
         Route newRoute = MaterialPageRoute(builder: (_) => StoreHome());
         Navigator.pushReplacement(context, newRoute);
       } else {
@@ -102,8 +71,15 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Material(
       child: Container(
+        color: Colors.white,
         child: Center(
-          child: Text('Welcome To PaintBall Application'),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Image.asset('images/welcome.png'),
+              Text('Welcome to Book Store'),
+            ],
+          ),
         ),
       ),
     );

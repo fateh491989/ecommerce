@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class EcommerceApp{
   // App Information
-   static const String appName = 'Fresh Genie';
+   static const String appName = 'Book Store';
 
 
 
@@ -17,8 +17,10 @@ class EcommerceApp{
 
    // Firebase Collection name
    static String collectionUser = "users";
+   static String collectionOrders = "orders";  // subCollection
    static String collectionAllBooks = "books";
    static String userCartList = 'userCart';
+   static String subCollectionAddress = 'userAddress';
 
    //Strings
    static String signInText = "Sign in using Phone Number";
@@ -41,5 +43,13 @@ class EcommerceApp{
 
 
    // BOOKs field
+
+   // Order fields
+   static final String addressID = 'addressID';
+   static final String totalAmount = 'totalAmount';
+   static final String productID = 'productIDs';
+   static final String paymentDetails ='paymentDetails';
+   static final String orderTime ='orderTime';
+   static final String isSuccess ='isSuccess';
 
 }

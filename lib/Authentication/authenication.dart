@@ -1,11 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'login.dart';
 import 'register.dart';
-import '../Config/config.dart';
-import '../dialogs/errorDialog.dart';
-import '../dialogs/loadingDialog.dart';
+import 'package:ecommerce/Config/config.dart';
 
 
 class AuthenticScreen extends StatefulWidget {

@@ -1,17 +1,14 @@
 import 'dart:io';
-
-import 'package:ecommerce/main.dart';
+import 'package:ecommerce/Widgets/customTextField.dart';
+import 'package:ecommerce/dialogs/errorDialog.dart';
+import 'package:ecommerce/dialogs/loadingDialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import '../Store/storehome.dart';
+import 'package:ecommerce/Config/config.dart';
 
-import '../Authentication/authenication.dart';
-import '../Config/config.dart';
-import '../Widgets/customTextField.dart';
-import '../dialogs/errorDialog.dart';
-import '../dialogs/loadingDialog.dart';
-import '../homepage.dart';
 
 
 class Register extends StatefulWidget {
@@ -94,13 +91,7 @@ class _RegisterState extends State<Register> {
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                'Register here',
-                style: TextStyle(color: Colors.red),
-              ),
-            ),
+
 
             InkWell(
                 onTap: _pickImage,
@@ -174,32 +165,7 @@ class _RegisterState extends State<Register> {
       ),
     );
   }
-
-//  void _completeRegister() {
-//    _passwordController.text == _passwordConfirmController.text
-//        ? _emailController.text.isNotEmpty &&
-//        _passwordConfirmController.text.isNotEmpty &&
-//        _nameController.text.isNotEmpty
-//        ? _register()
-//        : showDialog(
-//        context: context,
-//        builder: (con) {
-//          return ErrorAlertDialog(
-//            message: 'Please fill the desired fields',
-//          );
-//        })
-//        : showDialog(
-//        context: context,
-//        builder: (con) {
-//          return ErrorAlertDialog(
-//            message: 'Password doesn\'t match',
-//          );
-//        });
-//  }
-
   void _register() async {
-
-
     FirebaseUser currentUser;
     await _auth
         .createUserWithEmailAndPassword(
@@ -221,12 +187,9 @@ class _RegisterState extends State<Register> {
     if (currentUser != null) {
       writeDataToDataBase(currentUser).then((s) {
         Navigator.pop(context);
-
-        Route route = MaterialPageRoute(builder: (context) => StoreHomePage());
-        Navigator.pushReplacement(context, route);
+        Route newRoute = MaterialPageRoute(builder: (_) => StoreHome());
+        Navigator.pushReplacement(context, newRoute);
       });
-    } else {
-      //   _success = false;
     }
   }
 

@@ -1,3 +1,4 @@
+import 'package:ecommerce/Widgets/loadingWidget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -11,8 +12,8 @@ class LoadingAlertDialog extends StatelessWidget {
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          CircularProgressIndicator(
-            valueColor:  AlwaysStoppedAnimation<Color>(Colors.red)
+          LoadingWidget(
+
           ),
           SizedBox(
             height: 10,

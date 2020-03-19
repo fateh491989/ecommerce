@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../Search.dart';
+import '../Store/Search.dart';
+
 
 class SearchBoxDelegate extends SliverPersistentHeaderDelegate {
   @override

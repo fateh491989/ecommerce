@@ -31,6 +31,9 @@ dependencies:
   firebase_storage: ^3.1.1
   flutter_staggered_grid_view: ^0.3.0
   provider: ^4.0.4
+  paytm: ^1.0.0
+  intl:
+  upi_india: ^1.1.1
 
 
 dev_dependencies:
@@ -50,8 +53,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #  - images/a_dot_burr.jpeg
+  assets:
+   - images/welcome.png
   #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

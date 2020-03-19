@@ -1,12 +1,11 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecommerce/Widgets/customTextField.dart';
+import 'package:ecommerce/dialogs/errorDialog.dart';
+import 'package:ecommerce/dialogs/loadingDialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import '../Authentication/authenication.dart';
-import '../Config/config.dart';
-import '../Widgets/customTextField.dart';
-import '../dialogs/errorDialog.dart';
-import '../dialogs/loadingDialog.dart';
-import '../homepage.dart';
+import '../Store/storehome.dart';
+import 'package:ecommerce/Config/config.dart';
+
 
 class Login extends StatefulWidget {
   @override
@@ -118,8 +117,9 @@ class _LoginState extends State<Login> {
       readDataToDataBase(currentUser).then((s) {
         Navigator.pop(context);
         // TODO navigate to homescreen
-        Route route = MaterialPageRoute(builder: (context) => StoreHomePage());
-        Navigator.pushReplacement(context, route);
+
+        Route newRoute = MaterialPageRoute(builder: (_) => StoreHome());
+        Navigator.pushReplacement(context, newRoute);
       });
     } else {
       //   _success = false;
@@ -142,7 +142,9 @@ Future readDataToDataBase(FirebaseUser currentUser) async {
             .setString(EcommerceApp.userName, snapshot.data[EcommerceApp.userName]);
         await EcommerceApp.sharedPreferences
             .setString(EcommerceApp.userAvatarUrl, snapshot.data[EcommerceApp.userAvatarUrl]);
-        await EcommerceApp.sharedPreferences.setStringList(EcommerceApp.userCartList, snapshot.data[EcommerceApp.userCartList]);
+        print(snapshot.data[EcommerceApp.userCartList]);
+        List<String> cart = snapshot.data[EcommerceApp.userCartList].cast<String>();
+        await EcommerceApp.sharedPreferences.setStringList(EcommerceApp.userCartList, cart);
   });
 //      .setData({
 //    DeliveryApp.userUID: currentUser.uid,

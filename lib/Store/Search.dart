@@ -1,10 +1,10 @@
-import 'package:ecommerce/Store/Widgets/customAppBar.dart';
+
 import 'package:ecommerce/modals/book.dart';
-import 'package:ecommerce/storehome.dart';
+import 'package:ecommerce/Store/storehome.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'Store/Widgets/searchBox.dart';
+import '../Widgets/customAppBar.dart';
 
 class SearchService {
 

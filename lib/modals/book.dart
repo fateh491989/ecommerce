@@ -6,6 +6,7 @@ class BookModel {
   String thumbnailUrl;
   String longDescription;
   String status;
+  int price;
   List<dynamic> authors;
   List<String> categories;
 
@@ -32,12 +33,14 @@ class BookModel {
     status = json['status'];
     authors = json['authors'].cast<String>();
     categories = json['categories'].cast<String>();
+    price = json['price'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['title'] = this.title;
     data['isbn'] = this.isbn;
+    data['price'] = this.price;
     data['pageCount'] = this.pageCount;
     if (this.publishedDate != null) {
       data['publishedDate'] = this.publishedDate.toJson();
