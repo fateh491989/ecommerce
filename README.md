@@ -1,6 +1,25 @@
 # ecommerce
+A complete Flutter E-Commerce Book Store application built using firebase as backend.
+![g](https://user-images.githubusercontent.com/16588377/77118745-f815ca80-6a5a-11ea-9aba-94ab4153c388.png)
 
-A new Flutter application.
+## Features 
+ * Add or remove item in cart
+ * Search products
+ * Add Address
+ * Payment through UPI
+ * Firestore Backend
+ * SignIn using firebase
+ 
+ 
+ 
+ 
+### Created & Maintained By
+
+[Fateh Singh](https://github.com/fateh491989) 
+Email: fss491989@gmail.com
+> If you found this project helpful or you learned something from the source code and want to thank me, consider buying me a cup of :coffee:
+>
+> - [PayPal](https://www.paypal.me/singhfateh/)
 
 ## Getting Started
 
